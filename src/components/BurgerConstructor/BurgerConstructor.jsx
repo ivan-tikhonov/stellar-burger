@@ -17,7 +17,7 @@ const BurgerConstructor = (props) => {
         {
           constructorItemList.map((item, index) => (
             <article key={item._id}>
-              <DragIcon type='primary' />
+              <DragIcon type='primary' /><br/>
               <ConstructorElement
                   text={item.name}
                   price={item.price}
