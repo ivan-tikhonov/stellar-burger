@@ -13,31 +13,28 @@ const Modal = (props) => {
 
   useEffect(() => {
     const handleKeydownModalClose = (e) => {
-        if (e.key === 'Escape') {
-            onClose();
-        }
+      if (e.key === 'Escape') {
+        onClose();
+      }
     }
 
-    // Add event listener when component did mount
     document.addEventListener('keydown', handleKeydownModalClose);
-
-    // Remove event listener when component will unmount
     return () => {
         document.removeEventListener('keydown', handleKeydownModalClose);
     }
-}, []);
+  }, []);
 
   return createPortal(
     (
-        <div className={modalStyles.Modal}>
-            <ModalOverlay onClose={onClose} />
-            <section className={modalStyles.ModalContent}>
-              <section className={`${modalStyles.Close} mt-15 mr-10`}>
-                        <CloseIcon type='primary' onClick={onClose} />
-              </section>
-              {children}
-            </section>
-        </div>
+      <div className={modalStyles.Modal}>
+        <ModalOverlay onClose={onClose} />
+        <section className={modalStyles.ModalContent}>
+          <section className={`${modalStyles.Close} mt-15 mr-10`}>
+            <CloseIcon type='primary' onClick={onClose} />
+          </section>
+          {children}
+        </section>
+      </div>
     ), modalRoot
   );
 };
