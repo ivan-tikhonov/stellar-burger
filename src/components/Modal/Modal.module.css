@@ -18,3 +18,11 @@
     border-radius: 40px;
     z-index: 1;
 }
+
+.Close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  z-index: 2;
+}

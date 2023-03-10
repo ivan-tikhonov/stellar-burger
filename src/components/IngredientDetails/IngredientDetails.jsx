@@ -1,5 +1,4 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const IngredientDetails = (props) => {
   const { ingredientItem, onClose } = props;
@@ -10,7 +9,6 @@ const IngredientDetails = (props) => {
         <span className='text text_type_main-large'>
           Детали ингредиента
         </span>
-        <CloseIcon type='primary' onClick={onClose} />
       </header>
       <img src={ingredientItem.image_large} alt="ingredient_image" />
       <span className={`text text_type_main-medium ${ingredientDetailsStyles.IngredientTitle} mt-4 mb-8`}>{ingredientItem.name}</span>

@@ -1,14 +1,10 @@
 import orderDetailsStyles from './OrderDetails.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import doneButton from '../../images/done.svg';
 const OrderDetails = (props) => {
   const { orderNumber, onClose } = props;
 
   return (
     <div className={`${orderDetailsStyles.OrderDetails} pt-30 pb-30`}>
-      <section className={`${orderDetailsStyles.CloseButton} mt-15 mr-10`}>
-        <CloseIcon type='primary' onClick={onClose} />
-      </section>
       <span className={`${orderDetailsStyles.OrderNumber} text text_type_digits-large mb-8`}>
         {orderNumber}
       </span>

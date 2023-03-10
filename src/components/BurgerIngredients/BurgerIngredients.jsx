@@ -2,6 +2,8 @@ import ingredientsStyles from './BurgerIngredients.module.css';
 import BurgerIngredientsTab from '../BurgerIngredientsTab/BurgerIngredientsTab';
 import BurgerIngredientsItem from '../BurgerIngredientsItem/BurgerIngredientsItem';
 
+import PropTypes from 'prop-types';
+
 const BurgerIngredients = (props) => {
   const { data, constructorItemList, onHandleOpenModal } = props;
   const buns = data.filter(item => item.type === 'bun');
@@ -23,12 +25,12 @@ const BurgerIngredients = (props) => {
           </p>
           <section className={`${ingredientsStyles.IngredientsContainer} ml-4`}>
             {
-              buns.map((item) => <BurgerIngredientsItem
+              buns.map((item) => (<BurgerIngredientsItem
                 key={item._id}
                 constructorItemList={constructorItemList}
                 item={item}
                 onHandleOpenModal={onHandleOpenModal}
-              />)
+              />))
             }
           </section>
         </div>
@@ -39,12 +41,12 @@ const BurgerIngredients = (props) => {
           </p>
           <section className={`${ingredientsStyles.IngredientsContainer} ml-4`}>
             {
-              sauces.map((item) => <BurgerIngredientsItem
+              sauces.map((item) => (<BurgerIngredientsItem
                 key={item._id}
                 constructorItemList={constructorItemList}
                 item={item}
                 onHandleOpenModal={onHandleOpenModal}
-              />)
+              />))
             }
           </section>
         </div>
@@ -55,12 +57,12 @@ const BurgerIngredients = (props) => {
           </p>
           <section className={`${ingredientsStyles.IngredientsContainer} ml-4`}>
             {
-              mains.map((item) => <BurgerIngredientsItem
+              mains.map((item) => (<BurgerIngredientsItem
                 key={item._id}
                 constructorItemList={constructorItemList}
                 item={item}
                 onHandleOpenModal={onHandleOpenModal}
-              />)
+              />))
             }
           </section>
         </div>
@@ -69,6 +71,10 @@ const BurgerIngredients = (props) => {
     </div>
     );
 };
+
+BurgerIngredients.propTypes = {
+  setIngredientInfoModalState: PropTypes.func.isRequired
+}
 
 
 export default BurgerIngredients;

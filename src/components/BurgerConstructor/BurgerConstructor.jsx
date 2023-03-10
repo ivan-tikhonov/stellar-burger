@@ -1,6 +1,7 @@
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, useEffect } from 'react';
 import constructorStyles from './BurgerConstructor.module.css';
+import PropTypes from 'prop-types';
 
 const BurgerConstructor = (props) => {
     const { constructorItemList, onHandleCloseModal } = props;
@@ -15,7 +16,7 @@ const BurgerConstructor = (props) => {
         <section className={constructorStyles.BurgerSection}>
         {
           constructorItemList.map((item, index) => (
-            <section key={item._id}>
+            <article key={item._id}>
               <DragIcon type='primary' />
               <ConstructorElement
                   text={item.name}
@@ -24,7 +25,7 @@ const BurgerConstructor = (props) => {
                   extraClass={`${constructorStyles.Item}`}
 
               />
-            </section>
+            </article>
           ))
         }
         </section>
@@ -49,5 +50,8 @@ const BurgerConstructor = (props) => {
     );
 };
 
+BurgerConstructor.propTypes = {
+  setOrderState: PropTypes.func.isRequired
+}
 
 export default BurgerConstructor;

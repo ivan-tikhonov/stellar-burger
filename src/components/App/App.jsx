@@ -36,7 +36,12 @@ const App = () => {
 
   const getIngredientData = () => {
       fetch('https://norma.nomoreparties.space/api/ingredients')
-          .then(res => res.json())
+          .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка ${res.status}`);
+          })
           .then(data => {
               setState({ ...state, data: data.data });
               setConstructorItemList(data.data.filter((item) => item.price < 1000));
@@ -55,10 +60,10 @@ const App = () => {
     <div className={styles.App}>
       <AppHeader />
       {state.data.length &&
-        <section className={styles.Main}>
+        <main className={styles.Main}>
           <BurgerIngredients data={state.data} constructorItemList={constructorItemList} onHandleOpenModal={handleOpenIgredientInfoModal} />
           <BurgerConstructor constructorItemList={constructorItemList} onHandleCloseModal={handleOpenOrderModal} />
-        </section>
+        </main>
       }
       {orderModalState &&
         (
