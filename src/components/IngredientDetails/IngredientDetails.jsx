@@ -1,7 +1,8 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css';
+import IngredientItem from '../../utils/types';
 
 const IngredientDetails = (props) => {
-  const { ingredientItem, onClose } = props;
+  const { ingredientItem } = props;
 
   return (
     <div className={ingredientDetailsStyles.IngredientDetails}>
@@ -48,6 +49,10 @@ const IngredientDetails = (props) => {
       </section>
     </div>
   );
+};
+
+IngredientDetails.propTypes = {
+  ingredientItem: IngredientItem.isRequired
 };
 
 export default IngredientDetails;

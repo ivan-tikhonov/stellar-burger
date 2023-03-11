@@ -2,16 +2,37 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import itemStyles from './BurgerIngredientsItem.module.css';
 import PropTypes from 'prop-types';
 import IngredientItem from '../../utils/types';
+import { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addConstructorItem } from '../../services/slices/ConstructorItemsSlice';
+import { showIngredientInfo } from '../../services/slices/IngredientSlice';
+import { useDrag } from 'react-dnd';
 
-const BurgerIngredientsItem = (props) => {
-  const { constructorItemList, item, onHandleOpenModal } = props;
+const BurgerIngredientsItem = ({item}) => {
+  const [, dragRef] = useDrag({
+      type: 'ingredient',
+      item: {...item}
+  });
 
-  const count = constructorItemList.filter(i => i === item).length;
+  const dispatch = useDispatch();
+
+  const constructorItems = useSelector((store) => store.constructorItems.items);
+
+  const addItem = useCallback((item) => {
+    dispatch(addConstructorItem(item));
+  }, [constructorItems]);
+
+  const handleOpenIgredientInfoModal = useCallback((item) => {
+    dispatch(showIngredientInfo(item));
+  }, [dispatch]);
+
+  const count = constructorItems.filter(i => i === item).length;
 
   return (
     <div
+      ref={dragRef}
       className={`${itemStyles.BurgerIngredientsItem} mb-8`}
-      onClick={() => {onHandleOpenModal(item)}}
+      onClick={() => {handleOpenIgredientInfoModal(item)}}
     >
       <img src={item.image} alt="ingridient" className={itemStyles.BurgerImage} />
       {count > 0 && <Counter count={count} size='default' extraClass='m-1' />}
@@ -27,9 +48,7 @@ const BurgerIngredientsItem = (props) => {
 };
 
 BurgerIngredientsItem.propTypes = {
-  constructorItemList: PropTypes.array.isRequired,
-  item: IngredientItem.isRequired,
-  onHandleOpenModal: PropTypes.func.isRequired
+  item: IngredientItem.isRequired
 }
 
 export default BurgerIngredientsItem;

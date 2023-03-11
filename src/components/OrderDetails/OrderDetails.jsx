@@ -1,7 +1,9 @@
 import orderDetailsStyles from './OrderDetails.module.css';
 import doneButton from '../../images/done.svg';
-const OrderDetails = (props) => {
-  const { orderNumber, onClose } = props;
+import { useSelector } from 'react-redux';
+
+const OrderDetails = () => {
+  const orderNumber = useSelector((store) => store.order.orderNumber);
 
   return (
     <div className={`${orderDetailsStyles.OrderDetails} pt-30 pb-30`}>

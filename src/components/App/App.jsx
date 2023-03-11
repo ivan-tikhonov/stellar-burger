@@ -6,76 +6,53 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../../services/slices/IngredientsItemsSlice';
+import { closeOrderModal } from '../../services/slices/OrderSlice';
+import { closeIngredientInfo } from '../../services/slices/IngredientSlice';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const App = () => {
-  const [state, setState] = useState({
-      data: []
-  });
+  const state = useSelector((store) => store.ingredientsItems);
+  const orderInfo = useSelector((store) => store.order);
+  const ingredientInfo = useSelector((store) => store.ingredientInfo);
+  const dispatch = useDispatch();
 
-  const [constructorItemList, setConstructorItemList] = useState([]);
-
-  const [orderModalState, setOrderModalState] = useState(false);
-  const [ingredientInfoModalState, setIngredientInfoModalState] = useState(false);
-
-  const [currentIngridient, setCurrentIngridient] = useState({});
-
-
-  const handleOpenOrderModal = useCallback(() => {
-      setOrderModalState(true);
+  useEffect(() => {
+    dispatch(fetchData());
   }, []);
 
-  const handleOpenIgredientInfoModal = useCallback((item) => {
-      setIngredientInfoModalState(true);
-      setCurrentIngridient(item);
-  }, []);
+  const handleCloseOrderModal = useCallback(() => {
+    dispatch(closeOrderModal());
+  }, [orderInfo]);
 
-  const handleCloseModal = useCallback(() => {
-      setOrderModalState(false);
-      setIngredientInfoModalState(false);
-  }, []);
-
-  const getIngredientData = () => {
-      fetch('https://norma.nomoreparties.space/api/ingredients')
-          .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-          })
-          .then(data => {
-              setState({ ...state, data: data.data });
-              setConstructorItemList(data.data.filter((item) => item.price < 1000));
-          })
-          .catch(error => console.log(error));
-    }
-
-    useEffect(() => {
-      getIngredientData();
-    }, []);
-
-
-
+  const handleCloseIgredientInfoModal = useCallback(() => {
+    dispatch(closeIngredientInfo());
+  }, [ingredientInfo]);
 
   return (
     <div className={styles.App}>
       <AppHeader />
-      {state.data.length &&
+      {state.items.length &&
         <main className={styles.Main}>
-          <BurgerIngredients data={state.data} constructorItemList={constructorItemList} onHandleOpenModal={handleOpenIgredientInfoModal} />
-          <BurgerConstructor constructorItemList={constructorItemList} onHandleCloseModal={handleOpenOrderModal} />
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </DndProvider>
         </main>
       }
-      {orderModalState &&
+      {orderInfo.status === 'visible' &&
         (
-          <Modal onClose={handleCloseModal}>
-            <OrderDetails orderNumber={'034536'} onClose={handleCloseModal} />
+          <Modal onClose={handleCloseOrderModal}>
+              <OrderDetails />
           </Modal>
         )
       }
-      {ingredientInfoModalState &&
+      {ingredientInfo.status === 'visible' &&
         (
-          <Modal onClose={handleCloseModal}>
-            <IngredientDetails ingredientItem={currentIngridient} onClose={handleCloseModal} />
+          <Modal onClose={handleCloseIgredientInfoModal}>
+              <IngredientDetails ingredientItem={ingredientInfo.item} />
           </Modal>
         )
       }

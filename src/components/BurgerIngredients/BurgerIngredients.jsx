@@ -3,9 +3,10 @@ import BurgerIngredientsTab from '../BurgerIngredientsTab/BurgerIngredientsTab';
 import BurgerIngredientsItem from '../BurgerIngredientsItem/BurgerIngredientsItem';
 
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const BurgerIngredients = (props) => {
-  const { data, constructorItemList, onHandleOpenModal } = props;
+const BurgerIngredients = () => {
+  const data = useSelector((store) => store.ingredientsItems.items);
   const buns = data.filter(item => item.type === 'bun');
   const mains = data.filter(item => item.type === 'main');
   const sauces = data.filter(item => item.type === 'sauce');
@@ -27,9 +28,7 @@ const BurgerIngredients = (props) => {
             {
               buns.map((item) => (<BurgerIngredientsItem
                 key={item._id}
-                constructorItemList={constructorItemList}
                 item={item}
-                onHandleOpenModal={onHandleOpenModal}
               />))
             }
           </section>
@@ -43,9 +42,7 @@ const BurgerIngredients = (props) => {
             {
               sauces.map((item) => (<BurgerIngredientsItem
                 key={item._id}
-                constructorItemList={constructorItemList}
                 item={item}
-                onHandleOpenModal={onHandleOpenModal}
               />))
             }
           </section>
@@ -59,9 +56,7 @@ const BurgerIngredients = (props) => {
             {
               mains.map((item) => (<BurgerIngredientsItem
                 key={item._id}
-                constructorItemList={constructorItemList}
                 item={item}
-                onHandleOpenModal={onHandleOpenModal}
               />))
             }
           </section>
@@ -71,11 +66,6 @@ const BurgerIngredients = (props) => {
     </div>
     );
 };
-
-BurgerIngredients.propTypes = {
-  setIngredientInfoModalState: PropTypes.func.isRequired
-}
-
 
 export default BurgerIngredients;
 
