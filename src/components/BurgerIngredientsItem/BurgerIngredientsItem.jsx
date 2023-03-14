@@ -34,7 +34,7 @@ const BurgerIngredientsItem = ({item}) => {
       className={`${itemStyles.BurgerIngredientsItem} mb-8`}
       onClick={() => {handleOpenIgredientInfoModal(item)}}
     >
-      <img src={item.image} alt="ingridient" className={itemStyles.BurgerImage} />
+      <img src={item.image} alt={item.name} className={itemStyles.BurgerImage} />
       {count > 0 && <Counter count={count} size='default' extraClass='m-1' />}
       <p className={`text text_type_digits-default m-1 ${itemStyles.Price}`}>
           {item.price}

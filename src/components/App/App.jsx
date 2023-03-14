@@ -45,14 +45,14 @@ const App = () => {
       {orderInfo.status === 'visible' &&
         (
           <Modal onClose={handleCloseOrderModal}>
-              <OrderDetails />
+              <OrderDetails onClose={handleCloseOrderModal}/>
           </Modal>
         )
       }
       {ingredientInfo.status === 'visible' &&
         (
           <Modal onClose={handleCloseIgredientInfoModal}>
-              <IngredientDetails ingredientItem={ingredientInfo.item} />
+              <IngredientDetails ingredientItem={ingredientInfo.item} onClose={handleCloseIgredientInfoModal} />
           </Modal>
         )
       }

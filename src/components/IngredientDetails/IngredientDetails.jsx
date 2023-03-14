@@ -1,11 +1,13 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css';
 import IngredientItem from '../../utils/types';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const IngredientDetails = (props) => {
-  const { ingredientItem } = props;
-
-  return (
+const IngredientDetails = ({ingredientItem, onClose}) => {
+    return (
     <div className={ingredientDetailsStyles.IngredientDetails}>
+      <section className={`${ingredientDetailsStyles.Close} mt-15 mr-10`}>
+          <CloseIcon type='primary' onClick={onClose} />
+      </section>
       <header className={`${ingredientDetailsStyles.IngredientHeader} ml-10 mt-10 mr-10`}>
         <span className='text text_type_main-large'>
           Детали ингредиента
@@ -21,7 +23,7 @@ const IngredientDetails = (props) => {
           <span className='text text_type_digits-default text_color_inactive'>
             {ingredientItem.calories}
           </span>
-      </section>
+        </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>
           <span className='text text_type_main-small text_color_inactive'>
             Белки,г
@@ -32,10 +34,10 @@ const IngredientDetails = (props) => {
         </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>
           <span className='text text_type_main-small text_color_inactive'>
-              Жиры,г
+            Жиры,г
           </span>
           <span className='text text_type_digits-default text_color_inactive'>
-              {ingredientItem.fat}
+            {ingredientItem.fat}
           </span>
         </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>

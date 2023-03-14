@@ -1,70 +1,63 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
 import ingredientsStyles from './BurgerIngredients.module.css';
 import BurgerIngredientsTab from '../BurgerIngredientsTab/BurgerIngredientsTab';
-import BurgerIngredientsItem from '../BurgerIngredientsItem/BurgerIngredientsItem';
+import BurgerIngredientsItemList from '../BurgerIngredientsItemList/BurgerIngredientsItemList';
 
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const BurgerIngredients = () => {
   const data = useSelector((store) => store.ingredientsItems.items);
-  const buns = data.filter(item => item.type === 'bun');
-  const mains = data.filter(item => item.type === 'main');
-  const sauces = data.filter(item => item.type === 'sauce');
+  const buns = useMemo(() => data.filter(item => item.type === 'bun'), [data]);
+  const mains = useMemo(() => data.filter(item => item.type === 'main'), [data]);
+  const sauces = useMemo(() => data.filter(item => item.type === 'sauce'), [data]);
+
+  const [currentCategory, setCurrentCategory] = useState(0);
+
+  const scrollArea = useRef(null);
+  const refs = useRef([]);
+
+  const setCategory = (index) => {
+    refs.current[index].scrollIntoView({ block: 'start', behavior: 'smooth' });
+    setCurrentCategory(Number(index));
+  }
+
+  useEffect(() => {
+    const headers = {};
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        headers[entry.target.id] = entry.isIntersecting;
+      });
+      for (const header in headers) {
+        if (headers[header]) {
+          setCategory(header);
+          break;
+        }
+      }
+    }, { root: scrollArea.current });
+
+    refs.current.forEach(element => {
+      observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [refs]);
 
   return (
     <div className={`${ingredientsStyles.BurgerIngredients} mt-10`}>
       <p className='text text_type_main-large mb-5'>
         Соберите бургер
       </p>
-      <BurgerIngredientsTab />
+      <BurgerIngredientsTab currentCategory={currentCategory} setCategory={setCategory} />
 
-      <section className={ingredientsStyles.BurgerIngredientsContainer}>
-
-        <div className={`${ingredientsStyles.BurgerIngredientsItem}`}>
-          <p className='text text_type_main-medium mb-6'>
-            Булки
-          </p>
-          <section className={`${ingredientsStyles.IngredientsContainer} ml-4`}>
-            {
-              buns.map((item) => (<BurgerIngredientsItem
-                key={item._id}
-                item={item}
-              />))
-            }
-          </section>
-        </div>
-
-        <div className={`${ingredientsStyles.BurgerIngredientsItem}`}>
-          <p className='text text_type_main-medium mb-6'>
-            Соусы
-          </p>
-          <section className={`${ingredientsStyles.IngredientsContainer} ml-4`}>
-            {
-              sauces.map((item) => (<BurgerIngredientsItem
-                key={item._id}
-                item={item}
-              />))
-            }
-          </section>
-        </div>
-
-        <div className={`${ingredientsStyles.BurgerIngredientsItem}`}>
-          <p className='text text_type_main-medium mb-6'>
-            Начинки
-          </p>
-          <section className={`${ingredientsStyles.IngredientsContainer} ml-4`}>
-            {
-              mains.map((item) => (<BurgerIngredientsItem
-                key={item._id}
-                item={item}
-              />))
-            }
-          </section>
-        </div>
+      <section ref={scrollArea} className={ingredientsStyles.BurgerIngredientsContainer}>
+        <BurgerIngredientsItemList index={0} refs={refs} title='Булки' data={buns} />
+        <BurgerIngredientsItemList index={1} refs={refs} title='Соусы' data={sauces} />
+        <BurgerIngredientsItemList index={2} refs={refs} title='Начинки' data={mains} />
 
       </section>
     </div>
-    );
+  );
 };
 
 export default BurgerIngredients;
