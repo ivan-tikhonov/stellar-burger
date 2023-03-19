@@ -18,15 +18,11 @@ const BurgerIngredientsItem = ({item}) => {
 
   const constructorItems = useSelector((store) => store.constructorItems.items);
 
-  const addItem = useCallback((item) => {
-    dispatch(addConstructorItem(item));
-  }, [constructorItems]);
-
   const handleOpenIgredientInfoModal = useCallback((item) => {
     dispatch(showIngredientInfo(item));
   }, [dispatch]);
 
-  const count = constructorItems.filter(i => i === item).length;
+  const count = constructorItems.filter(i => i._id === item._id).length;
 
   return (
     <div

@@ -1,46 +1,35 @@
 .IngredientDetails {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-width: 720px;
-  position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 720px;
 }
 
 .IngredientHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 640px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 640px;
 }
 
 .IngredientTitle {
-  text-align: center;
-  max-width: 520px;
+    text-align: center;
+    max-width: 520px;
 }
 
 .IngredientDetailsItemList {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 520px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 520px;
 }
 
 .IngredientDetailsItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 115px;
-  height: 50px;
-}
-
-.Close {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  top: 10%;
-  right: 5%;
-  cursor: pointer;
-  z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 115px;
+    height: 50px;
 }

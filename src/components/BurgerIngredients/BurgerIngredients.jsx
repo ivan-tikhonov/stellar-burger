@@ -41,7 +41,8 @@ const BurgerIngredients = () => {
     });
 
     return () => observer.disconnect();
-  }, [refs]);
+  }, [refs, data]);
+
 
   return (
     <div className={`${ingredientsStyles.BurgerIngredients} mt-10`}>

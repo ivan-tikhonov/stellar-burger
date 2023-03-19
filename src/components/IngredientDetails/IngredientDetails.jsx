@@ -1,19 +1,18 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css';
 import IngredientItem from '../../utils/types';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const IngredientDetails = ({ingredientItem, onClose}) => {
-    return (
+const IngredientDetails = (props) => {
+  const { ingredientItem } = props;
+  console.log(ingredientItem);
+
+  return (
     <div className={ingredientDetailsStyles.IngredientDetails}>
-      <section className={`${ingredientDetailsStyles.Close} mt-15 mr-10`}>
-          <CloseIcon type='primary' onClick={onClose} />
-      </section>
       <header className={`${ingredientDetailsStyles.IngredientHeader} ml-10 mt-10 mr-10`}>
         <span className='text text_type_main-large'>
           Детали ингредиента
         </span>
       </header>
-      <img src={ingredientItem.image_large} alt="ingredient_image" />
+      <img src={ingredientItem.image_large} alt={ingredientItem.name} />
       <span className={`text text_type_main-medium ${ingredientDetailsStyles.IngredientTitle} mt-4 mb-8`}>{ingredientItem.name}</span>
       <section className={`${ingredientDetailsStyles.IngredientDetailsItemList} mb-15`}>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>
@@ -23,7 +22,7 @@ const IngredientDetails = ({ingredientItem, onClose}) => {
           <span className='text text_type_digits-default text_color_inactive'>
             {ingredientItem.calories}
           </span>
-        </section>
+      </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>
           <span className='text text_type_main-small text_color_inactive'>
             Белки,г
@@ -34,10 +33,10 @@ const IngredientDetails = ({ingredientItem, onClose}) => {
         </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>
           <span className='text text_type_main-small text_color_inactive'>
-            Жиры,г
+              Жиры,г
           </span>
           <span className='text text_type_digits-default text_color_inactive'>
-            {ingredientItem.fat}
+              {ingredientItem.fat}
           </span>
         </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>

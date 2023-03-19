@@ -1,16 +1,12 @@
 import orderDetailsStyles from './OrderDetails.module.css';
 import doneButton from '../../images/done.svg';
 import { useSelector } from 'react-redux';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const OrderDetails = ({onClose}) => {
+const OrderDetails = () => {
   const orderNumber = useSelector((store) => store.order.orderNumber);
 
   return (
     <div className={`${orderDetailsStyles.OrderDetails} pt-30 pb-30`}>
-      <section className={`${orderDetailsStyles.Close} mt-15 mr-10`}>
-          <CloseIcon type='primary' onClick={onClose} />
-      </section>
       <span className={`${orderDetailsStyles.OrderNumber} text text_type_digits-large mb-8`}>
         {orderNumber}
       </span>
