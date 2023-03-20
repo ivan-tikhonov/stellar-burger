@@ -17,7 +17,7 @@ const BurgerIngredients = () => {
   const refs = useRef([]);
 
   const setCategory = (index) => {
-    refs.current[index].scrollIntoView({ block: 'start', behavior: 'smooth' });
+    refs.current[index].scrollIntoView({ block: 'nearest', behavior: 'auto' });
     setCurrentCategory(Number(index));
   }
 
@@ -25,6 +25,7 @@ const BurgerIngredients = () => {
     const headers = {};
 
     const observer = new IntersectionObserver((entries) => {
+      console.log(entries);
       entries.forEach(entry => {
         headers[entry.target.id] = entry.isIntersecting;
       });
@@ -34,7 +35,7 @@ const BurgerIngredients = () => {
           break;
         }
       }
-    }, { root: scrollArea.current });
+    }, { root: scrollArea.current});
 
     refs.current.forEach(element => {
       observer.observe(element);
