@@ -16,7 +16,7 @@ const BurgerConstructorItemList = ({ constructorItems }) => {
     dispatch(updateConstructorItems(newItems));
   }, [constructorItems, dispatch]);
   return (
-    <section className={burgerConstructorItemListStyle.List} key={Math.random()}>
+    <section className={burgerConstructorItemListStyle.List}>
       {
         constructorItems.map((item, index) => item.type !== 'bun' && (
           <BurgerConstructorItem key={item.dragId} index={index} item={item} moveCard={moveCard} />

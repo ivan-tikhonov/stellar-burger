@@ -62,7 +62,7 @@ const BurgerConstructorItem = ({ item, index, moveCard }) => {
         price={item.price}
         thumbnail={item.image_mobile}
         extraClass={burgerConstructorItemStyles.Item}
-        handleClose={() => dispatch(deleteItem(index))}
+        handleClose={() => deleteItem(index)}
       />
     </section>
   );
