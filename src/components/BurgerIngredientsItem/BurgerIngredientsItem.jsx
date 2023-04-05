@@ -7,12 +7,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addConstructorItem } from '../../services/slices/ConstructorItemsSlice';
 import { showIngredientInfo } from '../../services/slices/IngredientSlice';
 import { useDrag } from 'react-dnd';
+import { Link, useLocation } from 'react-router-dom';
 
-const BurgerIngredientsItem = ({item}) => {
+const BurgerIngredientsItem = ({ item }) => {
   const [, dragRef] = useDrag({
-      type: 'ingredient',
-      item: {...item}
+    type: 'ingredient',
+    item: { ...item }
   });
+
+  const location = useLocation();
 
   const dispatch = useDispatch();
 
@@ -25,21 +28,27 @@ const BurgerIngredientsItem = ({item}) => {
   const count = constructorItems.filter(i => i._id === item._id).length;
 
   return (
-    <div
-      ref={dragRef}
-      className={`${itemStyles.BurgerIngredientsItem} mb-8`}
-      onClick={() => {handleOpenIgredientInfoModal(item)}}
+    <Link
+      className={itemStyles.Link}
+      to={`/ingredients/${item._id}`}
+      state={{ background: location }}
     >
-      <img src={item.image} alt={item.name} className={itemStyles.BurgerImage} />
-      {count > 0 && <Counter count={count} size='default' extraClass='m-1' />}
-      <p className={`text text_type_digits-default m-1 ${itemStyles.Price}`}>
+      <div
+        ref={dragRef}
+        className={`${itemStyles.BurgerIngredientsItem} mb-8`}
+        onClick={handleOpenIgredientInfoModal}
+      >
+        <img src={item.image} alt="bun" className={itemStyles.BurgerImage} />
+        {count > 0 && <Counter count={count} size='default' extraClass='m-1' />}
+        <p className={`text text_type_digits-default m-1 ${itemStyles.Price}`}>
           {item.price}
           <CurrencyIcon type='primary' />
-      </p>
-      <p className='text text_type_main-default mb-4'>
+        </p>
+        <p className='text text_type_main-default mb-4'>
           {item.name}
-      </p>
-    </div>
+        </p>
+      </div>
+    </Link>
   );
 };
 
