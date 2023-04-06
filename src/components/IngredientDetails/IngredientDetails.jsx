@@ -1,9 +1,18 @@
 import ingredientDetailsStyles from './IngredientDetails.module.css';
 import IngredientItem from '../../utils/types';
 
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useMemo } from 'react';
+
 const IngredientDetails = (props) => {
-  const { ingredientItem } = props;
-  console.log(ingredientItem);
+  const { ingredientId } = useParams();
+
+  const ingredientsItems = useSelector((store) => store.ingredientsItems.items);
+
+  const ingredientItem = useMemo(() => {
+    return ingredientsItems.find(item => item._id === ingredientId);
+  }, [ingredientId, ingredientsItems]);
 
   return (
     <div className={ingredientDetailsStyles.IngredientDetails}>
@@ -22,7 +31,7 @@ const IngredientDetails = (props) => {
           <span className='text text_type_digits-default text_color_inactive'>
             {ingredientItem.calories}
           </span>
-      </section>
+        </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>
           <span className='text text_type_main-small text_color_inactive'>
             Белки,г
@@ -33,10 +42,10 @@ const IngredientDetails = (props) => {
         </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>
           <span className='text text_type_main-small text_color_inactive'>
-              Жиры,г
+            Жиры,г
           </span>
           <span className='text text_type_digits-default text_color_inactive'>
-              {ingredientItem.fat}
+            {ingredientItem.fat}
           </span>
         </section>
         <section className={ingredientDetailsStyles.IngredientDetailsItem}>

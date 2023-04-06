@@ -1,15 +1,19 @@
-import { memo, useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import styles from './BurgerConstructor.module.css';
+
 import { useSelector, useDispatch } from 'react-redux';
-import { addConstructorItem, deleteConstructorItem } from '../../services/slices/ConstructorItemsSlice';
-import { postOrder } from '../../services/slices/OrderSlice';
+import { addConstructorItem } from '../../services/slices/ConstructorItemsSlice';
+import { openOrderModal, postOrder } from '../../services/slices/OrderSlice';
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorItemList from '../BurgerConstructorItemList/BurgerConstructorItemList';
 import { useDrop } from 'react-dnd';
 import uuid from 'react-uuid';
+import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const [, dropTargetRef] = useDrop({
     accept: 'ingredient',
@@ -20,6 +24,8 @@ const BurgerConstructor = () => {
 
   const constructorItems = useSelector((store) => store.constructorItems.items);
   const orderStatus = useSelector((store) => store.order.status);
+  const order = useSelector((store) => store.order);
+  const userData = useSelector((store) => store.userSlice);
 
   const bun = useMemo(() => {
     try {
@@ -42,6 +48,14 @@ const BurgerConstructor = () => {
     const ingredientsId = constructorItems.map(item => item._id);
     dispatch(postOrder(ingredientsId));
   }, [constructorItems]);
+
+  const handleCheckOrder = useCallback(() => {
+    if (!userData.isLoggedIn) {
+      navigate('/login', { replace: true });
+      return;
+    }
+    dispatch(openOrderModal());
+  }, [userData, dispatch, navigate]);
 
   return (
     <div
@@ -85,15 +99,15 @@ const BurgerConstructor = () => {
                 type='primary'
                 size='medium'
                 extraClass='mr-4'
-                onClick={handlePostOrder}
+                onClick={handleCheckOrder}
               >
-                {orderStatus === 'pending' ? `Оформляем Ваш заказ...` : `Оформить заказ`}
+                {order === 'pending' ? `Оформляем Ваш заказ...` : `Оформить заказ`}
               </Button>
             </section>
           </>
         ) : (
           <span className={`text text_type_main-large ${styles.BurgerConstructorEmpty} ml-10`}>
-            Добавьте булку и ингридиенты
+            Добавьте булку и полетели
           </span>
         )
       }
