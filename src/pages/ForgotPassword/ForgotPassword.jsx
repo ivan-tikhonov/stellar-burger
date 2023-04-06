@@ -30,9 +30,9 @@ const ForgotPassword = () => {
     }
   }, [values, navigate]);
 
-  if (isLoggedIn) {
-    return <Navigate to={from} />
-  }
+
+  return <Navigate to={from} />
+
 
   return (
     <section className={styles.ForgotPassword}>

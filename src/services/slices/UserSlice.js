@@ -10,6 +10,10 @@ import {
 
 import { deleteItemLocalStorage, setItemLocalStorage } from '../../utils/localStorage';
 
+const codeOk = 'ok';
+const codePending = 'pending';
+const codeError = 'error';
+
 export const register = createAsyncThunk(
   'userSlice/register',
   async (userData, { rejectWithValue }) => {
@@ -84,14 +88,14 @@ export const UserSlice = createSlice({
 
     builder
       .addCase(register.pending, (state) => {
-        state.status = 'pending';
+        state.status = codePending;
         state.user.name = null;
         state.user.email = null;
         state.error = null;
         state.isLoggedIn = false;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.status = 'ok';
+        state.status = codeOk;
         state.user.email = action.payload.user.email;
         state.user.name = action.payload.user.name;
         state.isLoggedIn = true;
@@ -99,20 +103,20 @@ export const UserSlice = createSlice({
         setItemLocalStorage('refreshToken', action.payload.refreshToken);
       })
       .addCase(register.rejected, (state, action) => {
-        state.status = 'error';
+        state.status = codeError;
         state.error = action.error.message;
       });
 
     builder
       .addCase(login.pending, (state) => {
-        state.status = 'pending';
+        state.status = codePending;
         state.user.name = null;
         state.user.email = null;
         state.error = null;
         state.isLoggedIn = false;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.status = 'ok';
+        state.status = codeOk;
         state.user.email = action.payload.user.email;
         state.user.name = action.payload.user.name;
         state.isLoggedIn = true;
@@ -120,7 +124,7 @@ export const UserSlice = createSlice({
         setItemLocalStorage('refreshToken', action.payload.refreshToken);
       })
       .addCase(login.rejected, (state, action) => {
-        state.status = 'error';
+        state.status = codeError;
         state.error = action.error.message;
       });
 
@@ -135,39 +139,39 @@ export const UserSlice = createSlice({
         deleteItemLocalStorage('refreshToken');
       })
       .addCase(logout.rejected, (state, action) => {
-        state.status = 'error';
+        state.status = codeError;
         state.error = action.error.message;
       });
 
     builder
       .addCase(getUserData.pending, (state) => {
-        state.status = 'pending';
+        state.status = codePending;
         state.error = null;
         state.isLoggedIn = false;
       })
       .addCase(getUserData.fulfilled, (state, action) => {
-        state.status = 'ok';
+        state.status = codeOk;
         state.user.name = action.payload.user.name;
         state.user.email = action.payload.user.email;
         state.isLoggedIn = true;
       })
       .addCase(getUserData.rejected, (state, action) => {
-        state.status = 'error';
+        state.status = codeError;
         state.error = action.error.message;
       });
 
     builder
       .addCase(updateUser.pending, (state) => {
-        state.status = 'pending';
+        state.status = codePending;
         state.error = null;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.status = 'ok';
+        state.status = codeOk;
         state.user.name = action.payload.user.name;
         state.user.email = action.payload.user.email;
       })
       .addCase(updateUser.rejected, (state, action) => {
-        state.status = 'error';
+        state.status = codeError;
         state.error = action.error.message;
       });
   }
