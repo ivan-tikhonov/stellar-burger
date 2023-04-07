@@ -2,7 +2,7 @@ import { Route, useNavigate, Routes } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/hooks';
 import { FC } from 'react';
 
-import IngredientDetails from '../../components/IngredientDetails/IngredientDetails';
+import IngredientDetails from '../IngredientDetails/IngredientDetailsPage';
 import Modal from '../../components/Modal/Modal';
 import { closeIngredientInfo } from '../../services/slices/IngredientSlice';
 
