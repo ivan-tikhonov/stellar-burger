@@ -11,28 +11,28 @@ import { deleteConstructorItem } from '../../services/slices/ConstructorItemsSli
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
 interface BurgerConstructorItemProps {
-    item: TIngredientItem;
+  item: TIngredientItem;
 }
 
 const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({ item }) => {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const deleteItem = (item: TIngredientItem) => {
-        dispatch(deleteConstructorItem(item));
-    }
+  const deleteItem = (item: TIngredientItem) => {
+    dispatch(deleteConstructorItem(item));
+  }
 
-    return (
-        <Reorder.Item value={item} as='section' transition={{ type: 'tween', duration: 0.3 }}>
-            <DragIcon type='primary' />
-            <ConstructorElement
-                text={item.name}
-                price={item.price}
-                thumbnail={item.image_mobile}
-                extraClass={styles.Item}
-                handleClose={() => deleteItem(item)}
-            />
-        </Reorder.Item>
-    );
+  return (
+    <Reorder.Item value={item} as='section' transition={{ type: 'tween', duration: 0.3 }}>
+      <DragIcon type='primary' />
+      <ConstructorElement
+        text={item.name}
+        price={item.price}
+        thumbnail={item.image_mobile}
+        extraClass={styles.Item}
+        handleClose={() => deleteItem(item)}
+      />
+    </Reorder.Item>
+  );
 };
 
 export default memo(BurgerConstructorItem);

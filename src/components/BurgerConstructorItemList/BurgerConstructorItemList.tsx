@@ -11,31 +11,31 @@ import { TIngredientItem } from '../../utils/types';
 import BurgerConstructorItem from '../BurgerConstructorItem/BurgerConstructorItem';
 
 interface BurgerConstructorItemListProps {
-    constructorItems: TIngredientItem[];
+  constructorItems: TIngredientItem[];
 }
 
 const BurgerConstructorItemList: FC<BurgerConstructorItemListProps> = ({ constructorItems }) => {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const update = (newList: TIngredientItem[]) => {
-        dispatch(updateConstructorItems(newList));
-    }
+  const update = (newList: TIngredientItem[]) => {
+    dispatch(updateConstructorItems(newList));
+  }
 
-    return (
-        <Reorder.Group
-            axis='y'
-            as='section'
-            onReorder={(newList) => update(newList)}
-            values={constructorItems}
-            className={styles.BurgerConstructorItemList}
-        >
-            {
-                constructorItems.map((item) => item.type !== 'bun' && (
-                    <BurgerConstructorItem key={item.dragId} item={item} />
-                ))
-            }
-        </Reorder.Group>
-    );
+  return (
+    <Reorder.Group
+      axis='y'
+      as='section'
+      onReorder={(newList) => update(newList)}
+      values={constructorItems}
+      className={styles.BurgerConstructorItemList}
+    >
+      {
+        constructorItems.map((item) => item.type !== 'bun' && (
+          <BurgerConstructorItem key={item.dragId} item={item} />
+        ))
+      }
+    </Reorder.Group>
+  );
 };
 
 export default memo(BurgerConstructorItemList);
