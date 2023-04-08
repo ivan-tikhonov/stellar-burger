@@ -1,10 +1,10 @@
 import burgerConstructorItemListStyle from './BurgerConstructorItemList.module.css';
 import { updateConstructorItems } from '../../services/slices/ConstructorItemsSlice';
-import PropTypes from 'prop-types';
 import { TIngredientItem } from '../../utils/types';
 import BurgerConstructorItem from '../BurgerConstructorItem/BurgerConstructorItem';
 import { useAppDispatch } from '../../hooks/hooks';
 import { FC } from 'react';
+import { Reorder } from 'framer-motion';
 
 interface BurgerConstructorItemListProps {
   constructorItems: TIngredientItem[];
@@ -18,14 +18,21 @@ const BurgerConstructorItemList: FC<BurgerConstructorItemListProps> = ({ constru
   }
 
   return (
-    <section className={burgerConstructorItemListStyle.List}>
-      {
-        constructorItems.map((item) => item.type !== 'bun' && (
-          <BurgerConstructorItem key={item.dragId} item={item} />
-        ))
-      }
-    </section>
-  );
+    <Reorder.Group
+        axis='y'
+        as='section'
+        onReorder={(newList) => update(newList)}
+        values={constructorItems}
+        className={burgerConstructorItemListStyle.BurgerConstructorItemList}
+    >
+        {
+            constructorItems.map((item) => item.type !== 'bun' && (
+                <BurgerConstructorItem key={item.dragId} item={item} />
+            ))
+        }
+    </Reorder.Group>
+);
 };
+
 
 export default BurgerConstructorItemList;
