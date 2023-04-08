@@ -1,3 +1,7 @@
+import { rootReducer } from '../services/store';
+export type RootState = ReturnType<typeof rootReducer>
+// export type AppDispatch = typeof store.dispatch;
+
 export type TIngredientItem = {
   dragId?: string;
   _id: string;
@@ -70,3 +74,13 @@ export type TPostResetPasswordData = {
   password: string;
   code: string;
 };
+
+export type TwsActions = {
+  wsConnection: string,
+  wsOffline: string,
+  wsOpen: string,
+  wsError: string,
+  wsMessage: string,
+  wsClose: string
+}
+

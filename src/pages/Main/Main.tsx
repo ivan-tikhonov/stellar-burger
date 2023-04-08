@@ -9,7 +9,7 @@ import styles from './Main.module.css';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 import Modal from '../../components/Modal/Modal';
-import OrderDetails from '../../components/OrderDetails/OrderDetails';
+import OrderConfirm from '../../components/OrderConfirm/OrderConfirm';
 import OrderError from '../../components/OrderError/OrderError';
 import OrderPending from '../../components/OrderPending/OrderPending';
 import ConfirmOrder from '../../components/ConfirmOrder/ConfirmOrder';
@@ -42,7 +42,7 @@ const MainPage: FC = () => {
       )}
       {orderInfo.status === 'visible' && (
         <Modal onClose={handleCloseOrderModal}>
-          <OrderDetails />
+          <OrderConfirm />
         </Modal>
       )}
       {orderInfo.status === 'pending' && (

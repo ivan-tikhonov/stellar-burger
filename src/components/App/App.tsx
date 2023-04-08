@@ -16,6 +16,7 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import IngredientDetailsPage from '../../pages/IngredientDetails/IngredientDetailsPage';
 import ModalPages from '../../pages/ModalPages/ModalPages';
+import Feed from '../../pages/Feed/Feed';
 
 
 const App: FC = () => {
@@ -51,6 +52,7 @@ const App: FC = () => {
             <AppHeader />
             <Routes location={background || location}>
               <Route path='/' element={<Main />} />
+              <Route path='/feed' element={<Feed />} />
               <Route path='/profile' element={<ProtectedRoute element={<Profile />} />} />
               <Route
                 path='/ingredients/:ingredientId'

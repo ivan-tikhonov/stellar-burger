@@ -1,20 +1,63 @@
 .OrderDetails {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-width: 720px;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 8;
+  margin: 0 auto;
+  max-width: 720px;
 }
 
-.OrderNumber {
-    text-shadow: 0 0 20px #4C4CFF;
+.OrderDetailsTotal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.DoneButton {
-    width: 120px;
-    height: 120px;
-    border: none;
+.OrderDetailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 32px 0 0;
+  position: relative;
+  max-height: 312px;
+  overflow-y: scroll;
 }
 
+.OrderDetailsFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
+.OrderDetailsItem {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 50%;
+  height: 64px;
+  object-fit: cover;
+  list-style: none;
+}
+
+.OrderDetailsItemBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.OrderDetailsItemName {
+  width: auto;
+}
+
+.OrderDetailsItemImage {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border: double 2px transparent;
+  background-image: linear-gradient(rgba(19, 19, 22, 1), rgba(19, 19, 22, 1)), linear-gradient(63.18deg, #801ab3, #4c4cff);
+  border-image-slice: 20;
+  border-radius: 50%;
+  background-clip: content-box, border-box;
+}

@@ -66,7 +66,7 @@ const Profile: FC = () => {
       <section className={styles.ProfileContainer}>
         <nav className={`${styles.Navigation} mt-3 mr-15`}>
           <Link to='/profile' className={`text text_type_main-medium ${styles.Link} ${styles.text_color_active}`}>Профиль</Link>
-          <Link to='/' className={`text text_type_main-medium text_color_inactive ${styles.Link}`}>История заказов</Link>
+          <Link to='/profile/orders/:id' className={`text text_type_main-medium text_color_inactive ${styles.Link}`}>История заказов</Link>
           <Link
             to='/login'
             className={`text text_type_main-medium text_color_inactive ${styles.Link}`}
