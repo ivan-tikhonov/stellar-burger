@@ -1,5 +1,5 @@
-import { FC, useState, useEffect, useCallback } from 'react';
-import { Link, NavLink, useLocation, useNavigate, Routes, Route } from 'react-router-dom';
+import { FC, useEffect, useCallback } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
@@ -14,9 +14,7 @@ import { OrderFeed } from '../../components/OrderFeed/OrderFeed'
 
 const Profile: FC = () => {
   const dispatch = useAppDispatch();
-  const orders = useAppSelector(store => store.ingredientsItems.orders)
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const accessToken = getItemLocalStorage('accessToken');
 
 
@@ -61,8 +59,6 @@ const Profile: FC = () => {
         {  window.location.pathname === `/profile` && <ProfileData />}
         {  window.location.pathname.startsWith(`/profile/orders`) && <OrderFeed />
         }
-
-
       </article >
     </section>
   );
