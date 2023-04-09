@@ -1,0 +1,19 @@
+.ProfileData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  max-width: 480px;
+}
+
+.ProfileDataButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+}
+
+.ProfileDataStatus {
+  display: flex;
+  justify-content: end;
+}

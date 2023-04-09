@@ -2,9 +2,10 @@ import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import { fetchData } from '../../services/slices/IngredientsItemsSlice';
 import { getUserData } from '../../services/slices/UserSlice';
+import { closeIngredientInfo } from '../../services/slices/IngredientSlice';
 
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { FC, useEffect } from 'react';
 
@@ -15,8 +16,10 @@ import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import IngredientDetailsPage from '../../pages/IngredientDetails/IngredientDetailsPage';
-import ModalPages from '../../pages/ModalPages/ModalPages';
 import Feed from '../../pages/Feed/Feed';
+import Modal from '../../components/Modal/Modal';
+import OrderDetails from '../../components/OrderDetails/OrderDetails';
+import IngredientDetails from '../../pages/IngredientDetails/IngredientDetailsPage';
 
 
 const App: FC = () => {
@@ -24,6 +27,12 @@ const App: FC = () => {
   const userData = useAppSelector((store) => store.userSlice);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleCloseModal = (): void => {
+    dispatch(closeIngredientInfo());
+    navigate(-1);
+  }
 
   useEffect(() => {
     dispatch(fetchData());
@@ -54,16 +63,50 @@ const App: FC = () => {
               <Route path='/' element={<Main />} />
               <Route path='/feed' element={<Feed />} />
               <Route path='/profile' element={<ProtectedRoute element={<Profile />} />} />
+              <Route path='/profile/orders' element={<ProtectedRoute element={<Profile />} />} />
+              <Route path='profile/orders/:id' element={<ProtectedRoute element={<OrderDetails />} />} />
               <Route
                 path='/ingredients/:ingredientId'
                 element={<IngredientDetailsPage />}
               />
+              <Route path='/feed/:id' element={<OrderDetails />} />
               <Route path='/login' element={<ProtectedRoute anonymous element={<Login />} />} />
               <Route path='/register' element={<ProtectedRoute anonymous element={<Register />} />} />
               <Route path='/forgot-password' element={<ProtectedRoute anonymous element={<ForgotPassword />} />} />
               <Route path='/reset-password' element={<ProtectedRoute anonymous element={<ResetPassword />} />} />
             </Routes>
-            <ModalPages background={background} />
+            {background && (
+              <Routes>
+                <Route
+                  path='/ingredients/:ingredientId'
+                  element={
+                    <Modal onClose={handleCloseModal}>
+                      <IngredientDetails />
+                    </Modal>
+                  }
+                />
+                <Route
+                  path='/feed/:id'
+                  element={
+                    <Modal onClose={handleCloseModal} >
+                      <OrderDetails />
+                    </Modal>
+                  }
+                />
+                <Route
+                  path='/profile/orders/:id'
+                  element={
+                    <ProtectedRoute
+                      element={
+                        <Modal onClose={handleCloseModal}>
+                          <OrderDetails />
+                        </Modal>
+                      }
+                    />
+                  }
+                />
+              </Routes>
+            )}
           </>
         )
       }
