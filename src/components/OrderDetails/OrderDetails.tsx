@@ -1,6 +1,6 @@
 import styles from './OrderDetails.module.css';
 import { useLocation, useParams } from 'react-router-dom';
-import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useCallback, useEffect, FC } from 'react';
 import { onFetchOrder } from '../../services/slices/IngredientsItemsSlice';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
@@ -10,6 +10,7 @@ import { TOrder } from '../../services/slices/IngredientsItemsSlice';
 const OrderDetails: FC = () => {
 
   const { id } = useParams();
+  console.log(id);
   const dispatch = useAppDispatch();
   const ingredients = useAppSelector(store => store.ingredientsItems.items);
   const orders = useAppSelector(store => store.ingredientsItems.orders?.orders);
@@ -27,7 +28,8 @@ const OrderDetails: FC = () => {
   }, [location.pathname]);
 
   orderMatch = orders?.find(order => order.number.toString() === id)
-
+  console.log(orders);
+  console.log(orderMatch);
   const returnIngredientsPrice = useCallback(() => {
     const arrOfIngredientsPrice = orderMatch?.ingredients?.map(ingredient => ingredients?.find(item => item._id === ingredient)?.price);
 
@@ -82,9 +84,9 @@ const OrderDetails: FC = () => {
       </ul>
 
       <div className={`mt-10 ${styles.OrderDetailsFooter}`}>
-        <p className={`text text_color_inactive text_type_main-default`}>
+        {/* <p className={`text text_color_inactive text_type_main-default`}>
           <FormattedDate date={new Date(orderMatch!.createdAt)} /> i-GMT+3
-        </p>
+        </p> */}
         <div className={styles.OrderDetailsTotal}>
           <p className={`mr-2 text text_type_digits-default`}>{returnIngredientsPrice()}</p>
           <CurrencyIcon type="primary" />

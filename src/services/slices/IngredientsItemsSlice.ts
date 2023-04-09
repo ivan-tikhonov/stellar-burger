@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getIngredientData, getOrderRequest, placeOrderRequest } from '../../utils/api';
+import { getIngredientData, getOrderRequest } from '../../utils/api';
 // import { TIngredientItem } from '../../utils/types';
 
 
@@ -8,6 +8,7 @@ export const onFetchOrder = createAsyncThunk<TOrders, string, { rejectValue: TEr
   'ingredientsItems/onFetchOrder',
   async function (number, { rejectWithValue }) {
     const response = await getOrderRequest(number);
+    console.log(response);
     if (!response.ok) {
       return rejectWithValue({ status: response.status, message: 'Server Error, take a look on method onFetchOrder' });
     }
@@ -16,17 +17,7 @@ export const onFetchOrder = createAsyncThunk<TOrders, string, { rejectValue: TEr
   }
 )
 
-export const onPlaceOrder = createAsyncThunk<TPlaceOrder, string[], { rejectValue: TError }>(
-  'constructor/onPlaceOrder',
-  async function (cart, { rejectWithValue }) {
-    const response = await placeOrderRequest(cart);
-    if (!response.ok) {
-      return rejectWithValue({ status: response.status, message: 'Server Error, take a look on method onPlaceOrder' });
-    }
-    const data: TPlaceOrder = await response.json();
-    return data;
-  }
-)
+
 
 export const fetchData = createAsyncThunk<TIngredientItem[], undefined, { rejectValue: string }>(
   'ingredientsItems/fetchData',
@@ -72,11 +63,7 @@ export type TOrder = {
   number: number
 }
 
-export type TPlaceOrder = {
-  order: TOrder,
-  name: string,
-  success: boolean
-}
+
 
 export type TError = {
   success?: boolean;
@@ -93,6 +80,8 @@ type TInitialState = {
   wsConnectionStatus: boolean;
   wsError: null | string;
   orders: null | TOrders;
+  fetchError: null | undefined | TError,
+  fetchRequest: boolean;
 };
 
 const initialState: TInitialState = {
@@ -103,7 +92,9 @@ const initialState: TInitialState = {
   wsUrl: '',
   wsConnectionStatus: true,
   wsError: null,
-  orders: null
+  orders: null,
+  fetchError: null,
+  fetchRequest: false,
 }
 
 export const IngredientsItemsSlice = createSlice({
@@ -149,23 +140,21 @@ export const IngredientsItemsSlice = createSlice({
         if (action.error.message) {
           state.error = action.error.message;
         }
-      });
+      })
 
     builder
       .addCase(onFetchOrder.pending, (state) => {
-        state.status = 'loading';
+        state.fetchRequest = true;
       })
       .addCase(onFetchOrder.fulfilled, (state, action) => {
         state.orders = action.payload;
-        state.status = 'ok';
-        state.error = null;
+        state.fetchRequest = false;
+        state.fetchError = null;
       })
-    builder.addCase(onFetchOrder.rejected, (state, action) => {
-      state.status = 'error';
-      if (action.error.message) {
-        state.error = action.error.message;
-      }
-    })
+      .addCase(onFetchOrder.rejected, (state, action) => {
+        state.fetchError = action.payload;
+        state.fetchRequest = false;
+      })
   }
 });
 

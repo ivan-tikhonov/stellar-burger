@@ -145,6 +145,7 @@ export const getOrderRequest = async (number: string) => {
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
   })
+
 }
 
 export const placeOrderRequest = async (cart: Array<string>) => {
