@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, useCallback } from 'react';
-import { Link, NavLink, useLocation, Routes, Route } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 
 
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
@@ -16,7 +16,9 @@ const Profile: FC = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector(store => store.ingredientsItems.orders)
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const accessToken = getItemLocalStorage('accessToken');
+
 
   useEffect(() => {
     dispatch(setWebsocketConnection(`${URL_WSS}/orders?token=${accessToken}`))
@@ -56,21 +58,11 @@ const Profile: FC = () => {
 
       </nav>
       <article className={`mt-10 ${styles.ProfileContent}`}>
-        <Routes>
-          <Route path={`/profile`} element={<ProfileData />} />
-          <Route path={`/profile/orders`} element={
-            orders && orders.orders.length === 0
-              ?
-              <>
-                <p className={`mt-20 text text_color_inactive text_type_main-large ${styles.ProfileTextOrder}`}>Нет заказов</p>
-                <Link to={`/`} className={`mt-10 text text_type_main-medium profile__link-order`} >
-                  Создать первый заказ
-                </Link>
-              </>
-              :
-              <OrderFeed />
-          } />
-        </Routes>
+        {  window.location.pathname === `/profile` && <ProfileData />}
+        {  window.location.pathname.startsWith(`/profile/orders`) && <OrderFeed />
+        }
+
+
       </article >
     </section>
   );
