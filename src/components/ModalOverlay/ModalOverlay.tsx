@@ -1,5 +1,5 @@
-import modalOverlayStyles from './ModalOverlay.module.css';
-import { FC } from 'react';
+import { FC, memo } from 'react';
+import styles from './ModalOverlay.module.css';
 
 interface ModalOverlayProps {
   onClose: () => void;
@@ -7,8 +7,8 @@ interface ModalOverlayProps {
 
 const ModalOverlay: FC<ModalOverlayProps> = (props) => {
   return (
-      <div className={modalOverlayStyles.ModalOverlay} onClick={props.onClose} />
+    <div className={styles.ModalOverlay} onClick={props.onClose} />
   );
 };
 
-export default ModalOverlay;
+export default memo(ModalOverlay);

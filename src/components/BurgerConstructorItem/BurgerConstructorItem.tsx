@@ -1,10 +1,14 @@
-import { FC, useRef } from 'react';
-import burgerConstructorItemStyles from './BurgerConstructorItem.module.css';
-import PropTypes from 'prop-types';
+import { FC, memo } from 'react';
+import styles from './BurgerConstructorItem.module.css';
+
+import { Reorder } from 'framer-motion';
+
+import { TIngredientItem } from '../../utils/types';
+
 import { useAppDispatch } from '../../hooks/hooks';
 import { deleteConstructorItem } from '../../services/slices/ConstructorItemsSlice';
+
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TIngredientItem } from '../../utils/types';
 
 interface BurgerConstructorItemProps {
   item: TIngredientItem;
@@ -18,20 +22,17 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({ item }) => {
   }
 
   return (
-    <>
+    <Reorder.Item value={item} as='section' transition={{ type: 'tween', duration: 0.3 }}>
       <DragIcon type='primary' />
       <ConstructorElement
         text={item.name}
         price={item.price}
         thumbnail={item.image_mobile}
-        extraClass={burgerConstructorItemStyles.Item}
+        extraClass={styles.Item}
         handleClose={() => deleteItem(item)}
       />
-    </>
-
-
+    </Reorder.Item>
   );
 };
 
-
-export default BurgerConstructorItem;
+export default memo(BurgerConstructorItem);

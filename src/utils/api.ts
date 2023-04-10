@@ -10,6 +10,7 @@ import {
 } from './types';
 
 export const URL = 'https://norma.nomoreparties.space/api';
+export const URL_WSS = `wss://norma.nomoreparties.space`;
 
 const request = async (url: string, options?: RequestInit) => {
   return fetch(URL + url, options)
@@ -131,4 +132,31 @@ export const postResetPassword = async (form: TPostResetPasswordData) => {
           token: form.code
        })
   });
+}
+
+export const getOrderRequest = async (number: string) => {
+  return fetch(`${URL}/orders/${number}`, {
+      method: 'GET',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+          "Content-Type": "application/json;charset=utf-8",
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+  })
+
+}
+
+export const placeOrderRequest = async (cart: Array<string>) => {
+  return fetch(`${URL}/orders`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          Authorization: 'Bearer ' + getItemLocalStorage('accessToken'),
+      },
+      body: JSON.stringify({
+          "ingredients": cart,
+      })
+  })
 }

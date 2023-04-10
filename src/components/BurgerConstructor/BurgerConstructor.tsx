@@ -1,15 +1,29 @@
-import { FC, useMemo, useCallback } from 'react';
+import {
+  FC,
+  memo,
+  useMemo,
+  useCallback
+} from 'react';
 import styles from './BurgerConstructor.module.css';
 
-import { addConstructorItem, clearConstructorItems } from '../../services/slices/ConstructorItemsSlice';
-import { openOrderModal, postOrder } from '../../services/slices/OrderSlice';
-import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import BurgerConstructorItemList from '../BurgerConstructorItemList/BurgerConstructorItemList';
+import { TIngredientItem } from '../../utils/types';
+
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import { addConstructorItem } from '../../services/slices/ConstructorItemsSlice';
+import { openOrderModal } from '../../services/slices/OrderSlice';
+
 import { useDrop } from 'react-dnd';
 import uuid from 'react-uuid';
+
+import {
+  Button,
+  ConstructorElement,
+  CurrencyIcon
+} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import BurgerConstructorItemList from '../BurgerConstructorItemList/BurgerConstructorItemList';
+
 import { useNavigate } from 'react-router-dom';
-import { TIngredientItem } from '../../utils/types';
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 
 const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
@@ -40,13 +54,7 @@ const BurgerConstructor: FC = () => {
     return 0;
   }, [constructorItems, bun]);
 
-  const handlePostOrder = useCallback(() => {
-    const ingredientsId = constructorItems.map(item => item._id);
-    dispatch(postOrder(ingredientsId));
-    dispatch(clearConstructorItems());
-  }, [constructorItems, dispatch]);
-
-  const handleCheckOrder = useCallback(() => {
+   const handleCheckOrder = useCallback(() => {
     if (!userData.isLoggedIn) {
       navigate('/login', { replace: true });
       return;
@@ -120,4 +128,4 @@ const BurgerConstructor: FC = () => {
   );
 };
 
-export default BurgerConstructor;
+export default memo(BurgerConstructor);

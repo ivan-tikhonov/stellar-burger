@@ -1,10 +1,14 @@
-import burgerConstructorItemListStyle from './BurgerConstructorItemList.module.css';
-import { updateConstructorItems } from '../../services/slices/ConstructorItemsSlice';
-import { TIngredientItem } from '../../utils/types';
-import BurgerConstructorItem from '../BurgerConstructorItem/BurgerConstructorItem';
+import { FC, memo } from 'react';
+import styles from './BurgerConstructorItemList.module.css';
+
 import { useAppDispatch } from '../../hooks/hooks';
-import { FC } from 'react';
+import { updateConstructorItems } from '../../services/slices/ConstructorItemsSlice';
+
 import { Reorder } from 'framer-motion';
+
+import { TIngredientItem } from '../../utils/types';
+
+import BurgerConstructorItem from '../BurgerConstructorItem/BurgerConstructorItem';
 
 interface BurgerConstructorItemListProps {
   constructorItems: TIngredientItem[];
@@ -19,20 +23,19 @@ const BurgerConstructorItemList: FC<BurgerConstructorItemListProps> = ({ constru
 
   return (
     <Reorder.Group
-        axis='y'
-        as='section'
-        onReorder={(newList) => update(newList)}
-        values={constructorItems}
-        className={burgerConstructorItemListStyle.BurgerConstructorItemList}
+      axis='y'
+      as='section'
+      onReorder={(newList) => update(newList)}
+      values={constructorItems}
+      className={styles.BurgerConstructorItemList}
     >
-        {
-            constructorItems.map((item) => item.type !== 'bun' && (
-                <BurgerConstructorItem key={item.dragId} item={item} />
-            ))
-        }
+      {
+        constructorItems.map((item) => item.type !== 'bun' && (
+          <BurgerConstructorItem key={item.dragId} item={item} />
+        ))
+      }
     </Reorder.Group>
-);
+  );
 };
 
-
-export default BurgerConstructorItemList;
+export default memo(BurgerConstructorItemList);

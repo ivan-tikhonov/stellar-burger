@@ -1,0 +1,20 @@
+.OrderDetails {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 720px;
+}
+
+.OrderNumber {
+    text-shadow: 0 0 20px #4C4CFF;
+}
+
+.DoneButton {
+    width: 120px;
+    height: 120px;
+    border: none;
+}
+
+

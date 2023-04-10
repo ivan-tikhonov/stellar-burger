@@ -85,6 +85,7 @@ type TInitialState = {
     isLoggedIn: boolean;
     status: string | null;
     error: string | null;
+    isUpdated: boolean;
 };
 
 const initialState: TInitialState = {
@@ -94,7 +95,8 @@ const initialState: TInitialState = {
     },
     isLoggedIn: false,
     status: null,
-    error: null
+    error: null,
+    isUpdated: false
 };
 
 export const UserSlice = createSlice({

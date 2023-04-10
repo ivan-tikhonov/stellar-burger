@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { postIngredients  } from '../../utils/api';
+import { postIngredients, placeOrderRequest  } from '../../utils/api';
 import { IOrderResponse } from '../../utils/types';
 
 export const postOrder = createAsyncThunk<IOrderResponse, string[], { rejectValue: string }>(
@@ -13,6 +13,40 @@ export const postOrder = createAsyncThunk<IOrderResponse, string[], { rejectValu
       }
   }
 );
+
+export const onPlaceOrder = createAsyncThunk<TPlaceOrder, string[], { rejectValue: TError }>(
+  'orderSlice/postOrder',
+  async function (cart, { rejectWithValue }) {
+    const response = await placeOrderRequest(cart);
+    if (!response.ok) {
+      return rejectWithValue({ status: response.status, message: 'Server Error, take a look on method onPlaceOrder' });
+    }
+    const data: TPlaceOrder = await response.json();
+    return data;
+  }
+)
+
+export type TPlaceOrder = {
+  order: TOrder,
+  name: string,
+  success: boolean
+}
+
+export type TOrder = {
+  _id: string,
+  ingredients: Array<string>,
+  status: string,
+  name: string,
+  createdAt: string,
+  updatedAt: string,
+  number: number
+}
+
+export type TError = {
+  success?: boolean;
+  message?: string
+  status?: number
+}
 
 type TInitialState = {
   status: string;

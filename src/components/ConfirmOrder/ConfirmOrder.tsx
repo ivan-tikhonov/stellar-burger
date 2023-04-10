@@ -1,5 +1,5 @@
 import styles from './ConfirmOrder.module.css';
-import { closeOrderModal, postOrder } from '../../services/slices/OrderSlice';
+import { closeOrderModal, onPlaceOrder } from '../../services/slices/OrderSlice';
 import { clearConstructorItems } from '../../services/slices/ConstructorItemsSlice';
 
 import { FC, useMemo, useCallback } from 'react';
@@ -34,7 +34,7 @@ const ConfirmOrder: FC = () => {
 
   const handlePostOrder = useCallback(() => {
       const ingredientsId = constructorItems.map(item => item._id);
-      dispatch(postOrder(ingredientsId));
+      dispatch(onPlaceOrder(ingredientsId));
       dispatch(clearConstructorItems());
   }, [constructorItems, dispatch]);
 
