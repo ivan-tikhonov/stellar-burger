@@ -74,6 +74,7 @@ const ConfirmOrder: FC = () => {
                   Отменить
               </Button>
               <Button
+                  data-testid={'buttonMakeOrder2'}
                   htmlType='button'
                   type='primary'
                   size='medium'

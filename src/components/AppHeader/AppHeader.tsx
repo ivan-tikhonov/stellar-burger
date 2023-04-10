@@ -12,7 +12,7 @@ const AppHeader: FC = () => {
     <header className={headerStyles.AppHeader}>
       <section className={headerStyles.HeaderButtons}>
         <nav className={headerStyles.NavButtons}>
-          <NavLink to='/' className={`${headerStyles.AppHeaderItem} p-5`}>
+          <NavLink to='/' className={`${headerStyles.AppHeaderItem} p-5`} data-testid={'constructor'}>
             {({ isActive }) => (
               <>
                 <BurgerIcon type={isActive ? 'primary' : 'secondary'} />
@@ -37,6 +37,7 @@ const AppHeader: FC = () => {
           to='/profile'
           className={`${headerStyles.AppHeaderItem} p-5`}
           title={userData.isLoggedIn ? 'Перейти в личный кабинет' : 'Войти/Зарегистрироваться'}
+          data-testid={'profile'}
         >
           {({ isActive }) => (
             <>

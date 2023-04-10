@@ -64,6 +64,7 @@ const BurgerConstructor: FC = () => {
 
   return (
     <div
+      data-testid={'dropTarget'}
       ref={dropTargetRef}
       className={`${styles.BurgerConstructor} ml-10 mt-25`}
     >
@@ -107,6 +108,7 @@ const BurgerConstructor: FC = () => {
                 <CurrencyIcon type='primary' />
               </section>
               <Button
+                data-testid={'buttonMakeOrder'}
                 htmlType='button'
                 type='primary'
                 size='medium'

@@ -8,7 +8,6 @@ export const onFetchOrder = createAsyncThunk<TOrders, string, { rejectValue: TEr
   'ingredientsItems/onFetchOrder',
   async function (number, { rejectWithValue }) {
     const response = await getOrderRequest(number);
-    console.log(response);
     if (!response.ok) {
       return rejectWithValue({ status: response.status, message: 'Server Error, take a look on method onFetchOrder' });
     }

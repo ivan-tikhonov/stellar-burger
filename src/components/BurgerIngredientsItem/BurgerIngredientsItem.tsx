@@ -38,6 +38,7 @@ const BurgerIngredientsItem: FC<BurgerIngredientsItemProps> = ({ item }) => {
       state={{ background: location }}
     >
       <div
+        id={item._id}
         ref={dragRef}
         className={`${itemStyles.BurgerIngredientsItem} mb-8`}
         onClick={handleOpenIgredientInfoModal}

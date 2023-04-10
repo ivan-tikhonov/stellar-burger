@@ -8,7 +8,7 @@ const OrderConfirm: FC = () => {
 
   return (
     <div className={`${orderConfirmStyles.OrderDetails} pt-30 pb-30`}>
-      <span className={`${orderConfirmStyles.OrderNumber} text text_type_digits-large mb-8`}>
+      <span className={`${orderConfirmStyles.OrderNumber} text text_type_digits-large mb-8`} data-testid={'orderId'}>
         {orderNumber}
       </span>
       <span className='text text_type_main-medium'>

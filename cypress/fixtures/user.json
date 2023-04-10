@@ -1,0 +1,6 @@
+{
+  "success": true,
+  "user": { "email": "ivantikhonov1989@gmail.com", "password": "ilovereact2" },
+  "accessToken": "Bearer 123456789",
+  "refreshToken": "987654321"
+}
