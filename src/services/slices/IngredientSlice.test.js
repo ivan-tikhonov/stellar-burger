@@ -1,12 +1,12 @@
 import {setupStore} from '../store';
-import {showIngredientInfo,closeIngredientInfo} from './IngredientSlice'
+import {initialState, showIngredientInfo,closeIngredientInfo} from './IngredientSlice'
 
 describe("ingridientSlice", () => {
 
   test("get empty store", async () => {
 		const store = setupStore();
 		expect(store.getState().ingredientInfo).toEqual({
-			status: 'hidden'
+			...initialState
 		});
 	});
 
@@ -29,7 +29,7 @@ describe("ingridientSlice", () => {
 			type: closeIngredientInfo.type
 		});
 		expect(store.getState().ingredientInfo).toEqual({
-			status: 'hidden'
+			...initialState
 		});
 	});
 

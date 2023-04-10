@@ -50,7 +50,10 @@ const AppHeader: FC = () => {
         </NavLink>
       </section>
       <section className={headerStyles.Logo}>
-        <Logo />
+        <NavLink to='/'>
+          <Logo />
+        </NavLink>
+
       </section>
     </header>
   );

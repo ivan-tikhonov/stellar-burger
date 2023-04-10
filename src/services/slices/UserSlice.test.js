@@ -1,4 +1,5 @@
 import { setupStore } from '../store';
+import { initialState } from './UserSlice';
 
 const mockPayload = {
   "user": {
@@ -14,14 +15,7 @@ describe("UserSlice", () => {
   test("get empty store", async () => {
     const store = setupStore();
     expect(store.getState().userSlice).toEqual({
-      user: {
-        name: null,
-        email: null
-      },
-      isLoggedIn: false,
-      status: null,
-      error: null,
-      isUpdated: false
+      ...initialState
     });
   });
 
@@ -32,14 +26,13 @@ describe("UserSlice", () => {
       payload: mockPayload
 		});
     expect(store.getState().userSlice).toEqual({
+      ...initialState,
       user: {
         name: "Ivan",
         email: "ivantikhonov1989@gmail.com"
       },
       isLoggedIn: true,
       status: "ok",
-      error: null,
-      isUpdated: false
     });
   });
 
@@ -50,14 +43,13 @@ describe("UserSlice", () => {
       payload: mockPayload
 		});
     expect(store.getState().userSlice).toEqual({
+      ...initialState,
       user: {
         name: "Ivan",
         email: "ivantikhonov1989@gmail.com"
       },
       isLoggedIn: true,
       status: "ok",
-      error: null,
-      isUpdated: false
     });
   });
 
@@ -67,14 +59,7 @@ describe("UserSlice", () => {
 			type: 'userSlice/logout/fulfilled',
 		});
     expect(store.getState().userSlice).toEqual({
-      user: {
-        name: null,
-        email: null
-      },
-      isLoggedIn: false,
-      status: null,
-      error: null,
-      isUpdated: false
+      ...initialState
     });
   });
 
@@ -85,14 +70,13 @@ describe("UserSlice", () => {
       payload: mockPayload
 		});
     expect(store.getState().userSlice).toEqual({
+      ...initialState,
       user: {
         name: "Ivan",
         email: "ivantikhonov1989@gmail.com"
       },
       isLoggedIn: true,
       status: "ok",
-      error: null,
-      isUpdated: false
     });
   });
 
@@ -103,14 +87,13 @@ describe("UserSlice", () => {
       payload: mockPayload
 		});
     expect(store.getState().userSlice).toEqual({
+      ...initialState,
       user: {
         name: "Ivan",
         email: "ivantikhonov1989@gmail.com"
       },
-      isLoggedIn: false,
       status: "ok",
-      error: null,
-      isUpdated: false
+      error: null
     });
   });
 

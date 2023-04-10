@@ -1,3 +1,5 @@
+export const testUrl = 'http://localhost:3000/';
+export const dropTargetSelector = '[data-testid=dropTarget]';
 export const endPoints = {
   ingredients: '/ingredients',
   orders: '/orders',

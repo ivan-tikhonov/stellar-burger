@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getIngredientData, getOrderRequest } from '../../utils/api';
-// import { TIngredientItem } from '../../utils/types';
 
 
 
@@ -83,7 +82,7 @@ type TInitialState = {
   fetchRequest: boolean;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   status: null,
   error: null,
   items: [],

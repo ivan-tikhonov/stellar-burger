@@ -88,7 +88,7 @@ type TInitialState = {
     isUpdated: boolean;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
     user: {
         name: null,
         email: null

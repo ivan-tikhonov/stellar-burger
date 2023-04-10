@@ -31,7 +31,7 @@ const BurgerIngredients: FC = () => {
       });
       for (const header in headers) {
         if (headers[header]) {
-          setCategory(Number(header));
+          setCurrentCategory(Number(header));
           break;
         }
       }

@@ -1,4 +1,5 @@
 import { setupStore } from '../store';
+import { initialState } from './IngredientsItemsSlice';
 
 const testItems = [{
   "__v": 0,
@@ -46,16 +47,7 @@ describe("ingridientSlice", () => {
   test("get empty store", async () => {
     const store = setupStore();
     expect(store.getState().ingredientsItems).toEqual({
-      status: null,
-      error: null,
-      items: [],
-      wsOpen: false,
-      wsUrl: '',
-      wsConnectionStatus: true,
-      wsError: null,
-      orders: null,
-      fetchError: null,
-      fetchRequest: false,
+      ...initialState
     });
   });
 
@@ -66,36 +58,21 @@ describe("ingridientSlice", () => {
       payload: testItems
     });
     expect(store.getState().ingredientsItems).toEqual({
+      ...initialState,
       status: "ok",
-      error: null,
       items: testItems,
-      wsOpen: false,
-      wsUrl: '',
-      wsConnectionStatus: true,
-      wsError: null,
-      orders: null,
-      fetchError: null,
-      fetchRequest: false,
     });
   });
 
   test("get onFetchOrder", async () => {
     const store = setupStore();
     await store.dispatch({
-      type: ' ingredientsItems/onFetchOrder/fulfilled',
+      type: 'ingredientsItems/onFetchOrder/fulfilled',
       payload: testOrder
     });
     expect(store.getState().ingredientsItems).toEqual({
-      status: null,
-      error: null,
-      items: [],
-      wsOpen: false,
-      wsUrl: '',
-      wsConnectionStatus: true,
-      wsError: null,
-      orders: null,
-      fetchError: null,
-      fetchRequest: false,
+      ...initialState,
+      orders: testOrder
     });
   });
 

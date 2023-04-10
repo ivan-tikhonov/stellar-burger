@@ -1,15 +1,16 @@
 import { URL } from '../../src/utils/api'
 
-import { endPoints, bun1, bun2, main, sauce} from '../../src/utils/testConsts'
+import { testUrl, dropTargetSelector, endPoints, bun1, bun2, main, sauce } from '../../src/utils/testConsts'
+
 
 describe('запускаем приложение', function () {
   beforeEach(() => {
-    cy.visit('localhost:3000');
+    cy.visit(testUrl);
     cy.intercept('GET', `${URL}${endPoints.ingredients}`,
-      { statusCode: 200, body: {success: true, data: [bun1, bun2, main, sauce]} });
-    cy.intercept('POST', `${URL}${endPoints.login}`, {delay: 1000, fixture: "user.json"}).as('login');
-    cy.intercept('POST', `${URL}${endPoints.orders}`, {delay: 1000, fixture: "order.json"}).as('order');
-    cy.intercept('POST', `${URL}${endPoints.logout}`, {delay: 1000, fixture: "logout.json"}).as('logout');
+      { statusCode: 200, body: { success: true, data: [bun1, bun2, main, sauce] } });
+    cy.intercept('POST', `${URL}${endPoints.login}`, { delay: 1000, fixture: "user.json" }).as('login');
+    cy.intercept('POST', `${URL}${endPoints.orders}`, { delay: 1000, fixture: "order.json" }).as('order');
+    cy.intercept('POST', `${URL}${endPoints.logout}`, { delay: 1000, fixture: "logout.json" }).as('logout');
   })
 
   it('аутентификация пользователя и заказ бургера', function () {
@@ -40,17 +41,17 @@ describe('запускаем приложение', function () {
 
     //формирование бургера
     cy.get(`#${bun1._id}`).trigger('dragstart');
-    cy.get('[data-testid=dropTarget]').trigger('drop');
+    cy.get(dropTargetSelector).trigger('drop');
 
     cy.get(`#${bun2._id}`).trigger('dragstart');
-    cy.get('[data-testid=dropTarget]').trigger('drop');
+    cy.get(dropTargetSelector).trigger('drop');
 
     cy.get(`#${sauce._id}`).trigger('dragstart');
-    cy.get('[data-testid=dropTarget]').trigger('drop');
+    cy.get(dropTargetSelector).trigger('drop');
 
     cy.get(`#${main._id}`).scrollIntoView().should('be.visible')
     cy.get(`#${main._id}`).trigger('dragstart');
-    cy.get('[data-testid=dropTarget]').trigger('drop');
+    cy.get(dropTargetSelector).trigger('drop');
 
     //оформление заказа
     cy.get(`[data-testid=buttonMakeOrder]`).should('exist').and('contain', 'Оформить заказ').click();

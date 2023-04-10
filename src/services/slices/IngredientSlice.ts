@@ -4,7 +4,7 @@ type TInitialState = {
   status: string;
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   status: 'hidden'
 };
 

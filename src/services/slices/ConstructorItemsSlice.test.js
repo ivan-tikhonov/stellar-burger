@@ -1,4 +1,5 @@
 import { setupStore } from '../store';
+import { initialState } from './ConstructorItemsSlice';
 
 const testBun = {
   "__v": 0,
@@ -36,7 +37,7 @@ describe("constructorItems", () => {
   test("get empty store", async () => {
     const store = setupStore();
     expect(store.getState().constructorItems).toEqual({
-      items: []
+      ...initialState
     });
   });
 
@@ -47,7 +48,7 @@ describe("constructorItems", () => {
       payload: testNotBun
     });
     expect(store.getState().constructorItems).toEqual({
-      items: []
+      ...initialState
     });
   });
 
@@ -58,6 +59,7 @@ describe("constructorItems", () => {
       payload: testBun
     });
     expect(store.getState().constructorItems).toEqual({
+      ...initialState,
       items: [testBun]
     });
   });
@@ -85,7 +87,7 @@ describe("constructorItems", () => {
     });
 
     expect(store.getState().constructorItems).toEqual({
-      items: []
+      ...initialState
     });
   });
 
@@ -123,7 +125,7 @@ describe("constructorItems", () => {
     });
 
     expect(store.getState().constructorItems).toEqual({
-      items: []
+      ...initialState
     });
   });
 

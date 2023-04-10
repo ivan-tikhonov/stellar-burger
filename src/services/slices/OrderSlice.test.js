@@ -1,16 +1,12 @@
 import { setupStore } from '../store';
-import { closeOrderModal, openOrderModal } from './OrderSlice';
+import { initialState, closeOrderModal, openOrderModal } from './OrderSlice';
 
 describe("orderSlice", () => {
 
   test("get empty store", async () => {
     const store = setupStore();
     expect(store.getState().order).toEqual({
-      status: 'hidden',
-      confirmStatus: 'hidden',
-      error: null,
-      name: null,
-      orderNumber: null
+      ...initialState
     });
   });
 
@@ -20,11 +16,8 @@ describe("orderSlice", () => {
 			type: openOrderModal.type
 		});
 		expect(store.getState().order).toEqual({
-			status: 'hidden',
+			...initialState,
       confirmStatus: 'visible',
-      error: null,
-      name: null,
-      orderNumber: null
 		});
 	});
 
@@ -38,11 +31,7 @@ describe("orderSlice", () => {
 		});
 
 		expect(store.getState().order).toEqual({
-			status: 'hidden',
-      confirmStatus: 'hidden',
-      error: null,
-      name: null,
-      orderNumber: null
+			...initialState
 		});
 	});
 
@@ -58,9 +47,8 @@ describe("orderSlice", () => {
       }
 		});
 		expect(store.getState().order).toEqual({
+      ...initialState,
 			status: 'visible',
-      confirmStatus: 'hidden',
-      error: null,
       name: "Ivan",
       orderNumber: "12345"
 		});

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './services/store';
 import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom'; //for github pages
 
 
 const root = ReactDOM.createRoot(
@@ -13,11 +14,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <React.StrictMode>
         <App />
       </React.StrictMode>
-    </BrowserRouter>
+    </HashRouter>
   </Provider>
 );
 
