@@ -37,6 +37,7 @@ const Profile: FC = () => {
         <NavLink to={`/profile`} className={`text text_type_main-medium ${styles.ProfileLink}`} >Профиль</NavLink>
         <NavLink to={`/profile/orders`} className={`text text_type_main-medium ${styles.ProfileLink}`}>История заказов</NavLink>
         <button
+          data-testid={'logout'}
           type="button"
           className={`text text_type_main-medium text_color_inactive from global ${styles.ProfileButton}`}
           onClick={handleLogout}

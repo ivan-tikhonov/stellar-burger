@@ -23,11 +23,13 @@ export const rootReducer = combineReducers({
   userSlice: UserSlice
 });
 
-const store = configureStore({
+export const setupStore = () => configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(socketMiddleware(wsActions)),
 });
 
+
+export const store = setupStore();
 export default store;
 

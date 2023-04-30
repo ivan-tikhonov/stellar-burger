@@ -56,7 +56,7 @@ type TInitialState = {
   orderNumber: number | null;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   status: 'hidden',
   confirmStatus: 'hidden',
   error: null,

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getIngredientData, getOrderRequest } from '../../utils/api';
-// import { TIngredientItem } from '../../utils/types';
 
 
 
@@ -8,7 +7,6 @@ export const onFetchOrder = createAsyncThunk<TOrders, string, { rejectValue: TEr
   'ingredientsItems/onFetchOrder',
   async function (number, { rejectWithValue }) {
     const response = await getOrderRequest(number);
-    console.log(response);
     if (!response.ok) {
       return rejectWithValue({ status: response.status, message: 'Server Error, take a look on method onFetchOrder' });
     }
@@ -84,7 +82,7 @@ type TInitialState = {
   fetchRequest: boolean;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   status: null,
   error: null,
   items: [],

@@ -10,7 +10,6 @@ import { TOrder } from '../../services/slices/IngredientsItemsSlice';
 const OrderDetails: FC = () => {
 
   const { id } = useParams();
-  console.log(id);
   const dispatch = useAppDispatch();
   const ingredients = useAppSelector(store => store.ingredientsItems.items);
   const orders = useAppSelector(store => store.ingredientsItems.orders?.orders);
@@ -28,8 +27,6 @@ const OrderDetails: FC = () => {
   }, [location.pathname]);
 
   orderMatch = orders?.find(order => order.number.toString() === id)
-  console.log(orders);
-  console.log(orderMatch);
   const returnIngredientsPrice = useCallback(() => {
     const arrOfIngredientsPrice = orderMatch?.ingredients?.map(ingredient => ingredients?.find(item => item._id === ingredient)?.price);
 

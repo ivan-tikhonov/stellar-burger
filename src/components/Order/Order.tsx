@@ -69,13 +69,13 @@ export const Order: FC<IOrderProps> = ({ orderInfo }) => {
               } else if (index === 5) {
                 return <li
                   key={index}
-                  style={{ zIndex: 6 - index, left: offset + 'px' }}
+                  style={{ left: offset + 'px' }}
                   className={styles.OrderIngredient}
                 >
                   <img
                     src={ingredient?.image}
                     alt={ingredient?.name}
-                    style={{ zIndex: 6 - index, opacity: 0.4 }}
+                    style={{ opacity: 0.4 }}
                     className={styles.OrderIngredientImage}
                   />
                   <p className={`text ${styles.OrderIngredientCounter}`} style={{ zIndex: 6 }}>
@@ -85,13 +85,12 @@ export const Order: FC<IOrderProps> = ({ orderInfo }) => {
               } else {
                 return <li
                   key={index}
-                  style={{ zIndex: 6 - index, left: offset + 'px' }}
+                  style={{ left: offset + 'px' }}
                   className={styles.OrderIngredient}
                 >
                   <img
                     src={ingredient?.image}
                     alt={ingredient?.name}
-                    style={{ zIndex: 6 - index }}
                     className={styles.OrderIngredientImage}
                   />
                 </li>
